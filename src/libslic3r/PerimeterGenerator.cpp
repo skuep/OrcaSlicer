@@ -1741,13 +1741,8 @@ void PerimeterGenerator::process_classic()
             // SoftFever: sandwich mode 
             else if (this->config->wall_sequence == WallSequence::InnerOuterInner)
                 if (entities.entities.size() > 1){
-                    int              last_outer=0;
-                    int              outer = 0;
-                    for (; outer < entities.entities.size(); ++outer)
-                        if (entities.entities[outer]->role() == erExternalPerimeter && outer - last_outer > 1) {
-                            std::swap(entities.entities[outer], entities.entities[outer - 1]);
-                            last_outer = outer;
-                        }
+                    entities.reverse();
+                    std::swap(entities.entities[0], entities.entities[1]);
                 }
             // append perimeters for this slice as a collection
             if (! entities.empty())
